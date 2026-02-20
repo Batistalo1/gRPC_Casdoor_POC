@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package auth.v1;
+
+option go_package = "grpc-casdoor-poc/gen/go/auth/v1;authv1";
+
+// SecureService provides secure RPC methods for authentication.
+service SecureService {
+  // Ping is a simple RPC method to test connectivity and authentication.
+  rpc Ping(PingRequest) returns (PingResponse);
+  // Login authenticates a user and returns an access token along with user information.
+  rpc Login(LoginRequest) returns (LoginResponse);
+  // Register creates a new user account and returns the user's ID and email.
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+}
+
+
+message PingRequest {
+  string message = 1;
+}
+
+message PingResponse {
+  string message = 1;
+}
+
+message LoginRequest {
+  string email    = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string access_token = 1;
+  string user_id      = 2;
+  string email        = 3;
+}
+
+message RegisterRequest {
+  string email    = 1;
+  string password = 2;
+  string username = 3;
+}
+
+message RegisterResponse {
+  string user_id = 1;
+  string email   = 2;
+}
